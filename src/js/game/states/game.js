@@ -41,18 +41,6 @@ game.create = function () {
   this.trump.body.bounce.set(1);
   this.trump.body.drag.x = 300;
 
-  // var brick;
-  //
-  // for (var y = 0; y < 4; y++)
-  // {
-  //     for (var x = 0; x < 15; x++)
-  //     {
-  //         brick = this.bricks.create(120 + (x * 36), 100 + (y * 52), 'breakout', 'brick_' + (y+1) + '_1.png');
-  //         brick.body.bounce.set(1);
-  //         brick.body.immovable = true;
-  //     }
-  // }
-
   this.paddle = game.add.sprite(game.world.centerX, 500, 'breakout', 'paddle_big.png');
   this.paddle.anchor.setTo(0.5, 0.5);
 
@@ -88,38 +76,7 @@ game.update = function () {
   //  Fun, but a little sea-sick inducing :) Uncomment if you like!
   // s.tilePosition.x += (game.input.speed.x / 2);
 
-  if(!this.wallBuilt)
-  {
-    if(this.bricks.length === 60) { //60
-      if(this.bricks.countDead() > 0) {
-        this.bricks.children[this.deadBricks].revive();
-        this.deadBricks ++;
-      } else {
-        this.deadBricks = 0;
-        this.wallBuilt = true;
-      }
-
-    } else {
-      if(this.brickY === 4) { //4
-        this.wallBuilt = true;
-        console.log('the wall is complete.')
-      } else {
-        var brick;
-        brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick_' + (this.brickY+1) + '_1.png');
-        brick.body.bounce.set(1);
-        brick.body.immovable = true;
-        this.brickX ++;
-        console.log(this.bricks.length)
-
-        if(this.brickX === 15)
-        {
-          this.brickX = 0
-          this.brickY ++;
-        }
-      }
-    }
-
-  }
+  game.buildThatWall();
 
   this.paddle.x = game.input.x;
 
@@ -238,31 +195,73 @@ game.ballHitPaddle = function (_ball, _paddle) {
         //  Add a little random X to stop it bouncing straight up!
         _ball.body.velocity.x = 2 + Math.random() * 8;
     }
+  }
 
-    game.ballHitTrump = function (_ball, _trump) {
-      var diff = 0;
-      this.score += 100;
-      this.scoreText.text = 'score: ' + this.score;
+  game.ballHitTrump = function (_ball, _trump) {
+    //TODO: Play hit audio.
 
-      if (_ball.x < _trump.x)
-      {
-          //  Ball is on the left-hand side of the paddle
-          diff = _trump.x - _ball.x;
-          _ball.body.velocity.x = (-10 * diff);
-      }
-      else if (_ball.x > _trump.x)
-      {
-          //  Ball is on the right-hand side of the paddle
-          diff = _ball.x -_trump.x;
-          _ball.body.velocity.x = (10 * diff);
-      }
-      else
-      {
-          //  Ball is perfectly in the middle
-          //  Add a little random X to stop it bouncing straight up!
-          _ball.body.velocity.x = 2 + Math.random() * 8;
-      }
+    var diff = 0;
+    this.score += 100;
+    this.scoreText.text = 'score: ' + this.score;
+
+    if (_ball.x < _trump.x)
+    {
+        //  Ball is on the left-hand side of the paddle
+        diff = _trump.x - _ball.x;
+        _ball.body.velocity.x = (-10 * diff);
     }
-}
+    else if (_ball.x > _trump.x)
+    {
+        //  Ball is on the right-hand side of the paddle
+        diff = _ball.x -_trump.x;
+        _ball.body.velocity.x = (10 * diff);
+    }
+    else
+    {
+        //  Ball is perfectly in the middle
+        //  Add a little random X to stop it bouncing straight up!
+        _ball.body.velocity.x = 2 + Math.random() * 8;
+    }
+  }
+
+  game.buildThatWall = function () {
+
+    //TODO:Play audio
+
+    //TODO:Set delay to match audio
+    this.time.events.add(Phaser.Timer.SECOND * 4, function() {
+      if(!this.wallBuilt)
+      {
+        if(this.bricks.length === 60) { //60
+          if(this.bricks.countDead() > 0) {
+            this.bricks.children[this.deadBricks].revive();
+            this.deadBricks ++;
+          } else {
+            this.deadBricks = 0;
+            this.wallBuilt = true;
+          }
+
+        } else {
+          if(this.brickY === 4) { //4
+            this.wallBuilt = true;
+            console.log('the wall is complete.')
+          } else {
+            var brick;
+            brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick_' + (this.brickY+1) + '_1.png');
+            brick.body.bounce.set(1);
+            brick.body.immovable = true;
+            this.brickX ++;
+            console.log(this.bricks.length)
+
+            if(this.brickX === 15)
+            {
+              this.brickX = 0
+              this.brickY ++;
+            }
+          }
+        }
+      }
+    }, this);
+  }
 
 module.exports = game;
