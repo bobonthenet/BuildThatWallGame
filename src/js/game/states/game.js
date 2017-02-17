@@ -24,6 +24,7 @@ game.init = function() {
 
 game.create = function () {
   this.weNeedToBuild = game.add.audio('weNeedToBuild');
+  this.stopIt = game.add.audio('stopIt');
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //  We check bounds collisions against all walls other than the bottom one
@@ -42,7 +43,7 @@ game.create = function () {
   this.trump.body.bounce.set(1);
   this.trump.body.drag.x = 300;
 
-  this.paddle = game.add.sprite(game.world.centerX, 500, 'breakout', 'paddle_big.png');
+  this.paddle = game.add.sprite(game.world.centerX, 500, 'breakout', 'bumper.png');
   this.paddle.anchor.setTo(0.5, 0.5);
 
   game.physics.enable(this.paddle, Phaser.Physics.ARCADE);
@@ -51,7 +52,7 @@ game.create = function () {
   this.paddle.body.bounce.set(1);
   this.paddle.body.immovable = true;
 
-  this.ball = game.add.sprite(game.world.centerX, this.paddle.y - 16, 'breakout', 'ball_1.png');
+  this.ball = game.add.sprite(game.world.centerX, this.paddle.y - 16, 'breakout', 'ball1.png');
   this.ball.anchor.set(0.5);
   this.ball.checkWorldBounds = true;
 
@@ -60,7 +61,7 @@ game.create = function () {
   this.ball.body.collideWorldBounds = true;
   this.ball.body.bounce.set(1);
 
-  this.ball.animations.add('spin', [ 'ball_1.png', 'ball_2.png', 'ball_3.png', 'ball_4.png', 'ball_5.png' ], 50, true, false);
+  this.ball.animations.add('spin', [ 'ball1.png', 'ball2.png', 'ball3.png', 'ball4.png', 'ball5.png' ], 50, true, false);
 
   this.ball.events.onOutOfBounds.add(game.ballLost, this);
 
@@ -199,7 +200,7 @@ game.ballHitPaddle = function (_ball, _paddle) {
   }
 
   game.ballHitTrump = function (_ball, _trump) {
-    //TODO: Play hit audio.
+    this.stopIt.play();
 
     var diff = 0;
     this.score += 100;
@@ -232,14 +233,13 @@ game.ballHitPaddle = function (_ball, _paddle) {
       this.wallBuiltAudio = true;
     }
 
-
-    //TODO:Set delay to match audio
     this.time.events.add(Phaser.Timer.SECOND * 5, function() {
+      //TODO: This still doesn't quite work. If a brick is killed before the wall is finished. It Errors.
       if(!this.wallBuilt)
       {
         if(this.bricks.length === 60) { //60
           if(this.bricks.countDead() > 0) {
-            this.bricks.children[this.deadBricks].revive();
+            this.bricks.children[this.deadBricks].revive(); //Errors if the wall is not finished.
             this.deadBricks ++;
           } else {
             this.deadBricks = 0;
@@ -252,7 +252,7 @@ game.ballHitPaddle = function (_ball, _paddle) {
             console.log('the wall is complete.')
           } else {
             var brick;
-            brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick_' + (this.brickY+1) + '_1.png');
+            brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
             brick.body.bounce.set(1);
             brick.body.immovable = true;
             this.brickX ++;
