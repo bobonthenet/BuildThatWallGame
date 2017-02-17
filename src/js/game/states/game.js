@@ -7,6 +7,7 @@ game.init = function() {
 
   this.ballOnPaddle = true;
   this.wallBuilt = false;
+  this.wallBuiltAudio = false;
   this.deadBricks = 0;
   this.brickX = 0;
   this.brickY = 0;
@@ -22,7 +23,7 @@ game.init = function() {
 };
 
 game.create = function () {
-
+  this.weNeedToBuild = game.add.audio('weNeedToBuild');
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //  We check bounds collisions against all walls other than the bottom one
@@ -226,10 +227,14 @@ game.ballHitPaddle = function (_ball, _paddle) {
 
   game.buildThatWall = function () {
 
-    //TODO:Play audio
+    if(!this.wallBuiltAudio) {
+      this.weNeedToBuild.play();
+      this.wallBuiltAudio = true;
+    }
+
 
     //TODO:Set delay to match audio
-    this.time.events.add(Phaser.Timer.SECOND * 4, function() {
+    this.time.events.add(Phaser.Timer.SECOND * 5, function() {
       if(!this.wallBuilt)
       {
         if(this.bricks.length === 60) { //60
