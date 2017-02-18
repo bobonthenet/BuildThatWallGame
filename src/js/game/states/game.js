@@ -171,6 +171,7 @@ game.ballHitBrick = function (_ball, _brick) {
         //  And bring the bricks back from the dead :)
         // this.bricks.callAll('revive');
         this.wallBuilt = false;
+        this.wallBuiltAudio = false;
     }
 
 }
@@ -233,40 +234,38 @@ game.ballHitPaddle = function (_ball, _paddle) {
       this.wallBuiltAudio = true;
     }
 
-    this.time.events.add(Phaser.Timer.SECOND * 5, function() {
-      //TODO: This still doesn't quite work. If a brick is killed before the wall is finished. It Errors.
-      if(!this.wallBuilt)
-      {
-        if(this.bricks.length === 60) { //60
-          if(this.bricks.countDead() > 0) {
-            this.bricks.children[this.deadBricks].revive(); //Errors if the wall is not finished.
-            this.deadBricks ++;
-          } else {
-            this.deadBricks = 0;
-            this.wallBuilt = true;
-          }
-
+    if(!this.wallBuilt)
+    {
+      if(this.bricks.length === 60) { //60
+        if(this.bricks.countDead() > 0) {
+          var dead = this.bricks.getFirstDead();
+          dead.revive();
+          this.deadBricks ++;
         } else {
-          if(this.brickY === 4) { //4
-            this.wallBuilt = true;
-            console.log('the wall is complete.')
-          } else {
-            var brick;
-            brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
-            brick.body.bounce.set(1);
-            brick.body.immovable = true;
-            this.brickX ++;
-            console.log(this.bricks.length)
+          this.deadBricks = 0;
+          this.wallBuilt = true;
+        }
 
-            if(this.brickX === 15)
-            {
-              this.brickX = 0
-              this.brickY ++;
-            }
+      } else {
+        if(this.brickY === 4) { //4
+          this.wallBuilt = true;
+          console.log('the wall is complete.')
+        } else {
+          var brick;
+          brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
+          brick.body.bounce.set(1);
+          brick.body.immovable = true;
+          this.brickX ++;
+          console.log(this.bricks.length)
+
+          if(this.brickX === 15)
+          {
+            this.brickX = 0
+            this.brickY ++;
           }
         }
       }
-    }, this);
+    }
   }
 
 module.exports = game;
