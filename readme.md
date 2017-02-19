@@ -2,7 +2,7 @@
 
 ![alt text][logo]
 
-[logo]: https://github.com/bobonthenet/BuildThatWallGame/tree/master/src/NotInBuild/screenshot.png
+[logo]: /src/NotInBuild/screenshot.png
 
 ## Running the game
 
