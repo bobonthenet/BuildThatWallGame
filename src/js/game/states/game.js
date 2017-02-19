@@ -76,9 +76,10 @@ game.create = function () {
 
 game.update = function () {
 
-if(this.trump.body.velocity.x === 0) {
-  this.trump.loadTexture('trump', 0);
-}
+  if(this.trump.body.velocity.x === 0) {
+    this.trump.loadTexture('trump', 0);
+  }
+  this.trump.body.velocity.y = 0;
 
   //  Fun, but a little sea-sick inducing :) Uncomment if you like!
   // s.tilePosition.x += (game.input.speed.x / 2);
