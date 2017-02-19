@@ -25,6 +25,9 @@ game.init = function() {
 game.create = function () {
   this.weNeedToBuild = game.add.audio('weNeedToBuild');
   this.stopIt = game.add.audio('stopIt');
+  this.smash1 = game.add.audio('smash1');
+  this.smash2 = game.add.audio('smash2');
+
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //  We check bounds collisions against all walls other than the bottom one
@@ -152,6 +155,12 @@ game.gameOver = function () {
 }
 
 game.ballHitBrick = function (_ball, _brick) {
+
+    if(this.rnd.integerInRange(0, 1) === 1){
+      this.smash1.play();
+    } else {
+      this.smash2.play();
+    }
 
     _brick.kill();
 

@@ -9,3 +9,11 @@
   1. clone
   2. npm install
   3. grunt
+
+## TODO:
+
+  * New background.
+  * More sound clips.
+  * Get help with mobile resize.
+  * Ads.
+  * Replace Trump head with Steve Bannon if player score is over 10,000.
