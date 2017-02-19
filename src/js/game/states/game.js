@@ -36,7 +36,7 @@ game.create = function () {
   this.bricks.enableBody = true;
   this.bricks.physicsBodyType = Phaser.Physics.ARCADE;
 
-  this.trump = game.add.sprite(400, 0, 'trumphead1');
+  this.trump = game.add.sprite(400, 0, 'trump', 'smugtrump.png');
   game.physics.enable(this.trump, Phaser.Physics.ARCADE);
 
   this.trump.body.collideWorldBounds = true;
@@ -75,6 +75,11 @@ game.create = function () {
 };
 
 game.update = function () {
+
+if(this.trump.body.velocity.x === 0) {
+  this.trump.loadTexture('trump', 0);
+}
+
   //  Fun, but a little sea-sick inducing :) Uncomment if you like!
   // s.tilePosition.x += (game.input.speed.x / 2);
 
@@ -202,7 +207,7 @@ game.ballHitPaddle = function (_ball, _paddle) {
 
   game.ballHitTrump = function (_ball, _trump) {
     this.stopIt.play();
-
+    _trump.loadTexture('trump', 1);
     var diff = 0;
     this.score += 100;
     this.scoreText.text = 'score: ' + this.score;
@@ -249,14 +254,12 @@ game.ballHitPaddle = function (_ball, _paddle) {
       } else {
         if(this.brickY === 4) { //4
           this.wallBuilt = true;
-          console.log('the wall is complete.')
         } else {
           var brick;
           brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
           brick.body.bounce.set(1);
           brick.body.immovable = true;
           this.brickX ++;
-          console.log(this.bricks.length)
 
           if(this.brickX === 15)
           {

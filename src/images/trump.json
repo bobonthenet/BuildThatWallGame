@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "smugtrump.png",
+	"frame": {"x":0,"y":0,"w":76,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":76,"h":100},
+	"sourceSize": {"w":76,"h":100}
+},
+{
+	"filename": "trumpderp.png",
+	"frame": {"x":76,"y":0,"w":79,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":100},
+	"sourceSize": {"w":79,"h":100}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "trump.png",
+	"format": "RGBA8888",
+	"size": {"w":155,"h":100},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:878c0996b4d2b75d2b563ee816628275:b09cb5bd2b1771e560eeb3da19dfab99:409655cb2a0c2b60657ba8a3533ab280$"
+}
+}
