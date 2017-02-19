@@ -4,6 +4,7 @@ var _ = require('lodash')
     { boot: require('./states/boot.js')
     , preloader: require('./states/preloader.js')
     , game: require('./states/game.js')
+    , menu: require('./states/menu.js')
     }
   , game = new Phaser.Game(properties.size.x, properties.size.y, Phaser.AUTO, 'game');
 
@@ -12,4 +13,4 @@ _.each(states, function(state, key) {
   game.state.add(key, state);
 });
 
-game.state.start('boot');
+game.state.start('menu');
