@@ -242,7 +242,7 @@ module.exports = function (grunt) {
     , 'copy:images'
     , 'copy:audio'
     , 'copy:phaserArcadeMin'
-    , 'cacheBust'
+    /*, 'cacheBust' */
     , 'connect'
     , 'open'
     , 'watch'

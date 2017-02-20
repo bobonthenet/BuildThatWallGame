@@ -151,6 +151,7 @@ game.gameOver = function () {
 
     this.introText.text = 'Game Over!';
     this.introText.visible = true;
+    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('menu'); }, this);
 
 }
 
@@ -239,6 +240,9 @@ game.ballHitPaddle = function (_ball, _paddle) {
         //  Ball is perfectly in the middle
         //  Add a little random X to stop it bouncing straight up!
         _ball.body.velocity.x = 2 + Math.random() * 8;
+    }
+    if(this.ball.body.velocity.y === 0){
+      this.ball.body.velocity.y = 10;
     }
   }
 
