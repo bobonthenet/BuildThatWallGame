@@ -6,16 +6,16 @@ preloader.preload = function () {
   this.game.load.image('seal', 'images/seal.png');
   this.game.load.atlas('trump', 'images/trump.png', 'images/trump.json');
 
-  this.game.load.audio('weNeedToBuild', [ 'audio/WeNeedToBuild.mp3', 'audio/WeNeedToBuild.ogg' ]);
+  this.game.load.audio('weNeedToBuild', [ 'audio/WeNeedToBuild.ogg', 'audio/WeNeedToBuild.mp3' ]);
 
-  this.game.load.audio('smash1', [ 'audio/smash1.mp3', 'audio/smash1.ogg' ]);
-  this.game.load.audio('smash2', [ 'audio/smash2.mp3', 'audio/smash2.ogg' ]);
+  this.game.load.audio('smash1', [ 'audio/smash1.ogg', 'audio/smash1.mp3' ]);
+  this.game.load.audio('smash2', [ 'audio/smash2.ogg', 'audio/smash2.mp3' ]);
 
   //Hit Trump sounds.
-  this.game.load.audio('beef', [ 'audio/beef.mp3', 'audio/beef.ogg' ]);
-  this.game.load.audio('stopIt', [ 'audio/stopit.mp3', 'audio/stopit.ogg' ]);
-  this.game.load.audio('cameoutofnowhere', [ 'audio/cameoutofnowhere.mp3', 'audio/cameoutofnowhere.ogg' ]);
-  this.game.load.audio('stupidpeopleinourcountry', [ 'audio/stupidpeopleinourcountry.mp3', 'audio/stupidpeopleinourcountry.ogg' ]);
+  this.game.load.audio('beef', [ 'audio/beef.ogg', 'audio/beef.mp3' ]);
+  this.game.load.audio('stopIt', [ 'audio/stopit.ogg', 'audio/stopit.mp3' ]);
+  this.game.load.audio('cameoutofnowhere', [ 'audio/cameoutofnowhere.ogg', 'audio/cameoutofnowhere.mp3' ]);
+  this.game.load.audio('stupidpeopleinourcountry', [ 'audio/stupidpeopleinourcountry.ogg', 'audio/stupidpeopleinourcountry.mp3' ]);
 
 };
 
