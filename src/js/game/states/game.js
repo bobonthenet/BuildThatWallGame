@@ -24,16 +24,22 @@ game.init = function() {
 
 game.create = function () {
   this.weNeedToBuild = game.add.audio('weNeedToBuild');
-  this.stopIt = game.add.audio('stopIt');
+
   this.smash1 = game.add.audio('smash1');
   this.smash2 = game.add.audio('smash2');
+
+  this.stopIt = game.add.audio('stopIt');
+  this.beef = game.add.audio('beef');
+  this.cameoutofnowhere = game.add.audio('cameoutofnowhere');
+  this.stupidpeopleinourcountry = game.add.audio('stupidpeopleinourcountry')
 
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   //  We check bounds collisions against all walls other than the bottom one
   game.physics.arcade.checkCollision.down = false;
 
-  this.s = game.add.tileSprite(0, 0, 800, 600, 'starfield');
+  this.s = game.add.tileSprite(game.world.centerX, game.world.centerY, 600, 600, 'seal');
+  this.s.anchor.setTo(0.5, 0.5);
 
   this.bricks = game.add.group();
   this.bricks.enableBody = true;
@@ -70,7 +76,7 @@ game.create = function () {
 
   this.scoreText = game.add.text(32, 550, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
   this.liveText = game.add.text(680, 550, 'lives: 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
-  this.introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "#ffffff", align: "center" });
+  this.introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "red", align: "center" });
   this.introText.anchor.setTo(0.5, 0.5);
 
   game.input.onDown.add(game.releaseBall, this);
@@ -126,7 +132,7 @@ game.releaseBall = function () {
 }
 
 game.ballLost = function () {
-
+    this.stupidpeopleinourcountry.play();
     this.lives--;
     this.liveText.text = 'lives: ' + this.lives;
 
@@ -217,7 +223,24 @@ game.ballHitPaddle = function (_ball, _paddle) {
   }
 
   game.ballHitTrump = function (_ball, _trump) {
-    this.stopIt.play();
+
+    var trumpHit = this.rnd.integerInRange(0, 2)
+
+    switch(trumpHit) {
+      case 0:
+        this.stopIt.play();
+        break;
+      case 1:
+        this.beef.play();
+        break;
+      case 2:
+        this.cameoutofnowhere.play();
+        break;
+    }
+
+
+
+
     _trump.loadTexture('trump', 1);
     var diff = 0;
     this.score += 100;
@@ -241,6 +264,26 @@ game.ballHitPaddle = function (_ball, _paddle) {
         //  Add a little random X to stop it bouncing straight up!
         _ball.body.velocity.x = 2 + Math.random() * 8;
     }
+
+    if (_ball.y < _trump.y)
+    {
+        //  Ball is on the left-hand side of the paddle
+        diff = _trump.y - _ball.y;
+        _ball.body.velocity.y = (-10 * diff);
+    }
+    else if (_ball.y > _trump.y)
+    {
+        //  Ball is on the right-hand side of the paddle
+        diff = _ball.y -_trump.y;
+        _ball.body.velocity.y = (10 * diff);
+    }
+    else
+    {
+        //  Ball is perfectly in the middle
+        //  Add a little random X to stop it bouncing straight up!
+        _ball.body.velocity.y = 2 + Math.random() * 8;
+    }
+
     if(this.ball.body.velocity.y === 0){
       this.ball.body.velocity.y = 10;
     }
