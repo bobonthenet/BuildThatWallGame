@@ -45,7 +45,7 @@ game.create = function () {
   this.bricks.enableBody = true;
   this.bricks.physicsBodyType = Phaser.Physics.ARCADE;
 
-  this.trump = game.add.sprite(400, 0, 'trump', 'smugtrump.png');
+  this.trump = game.add.sprite(game.world.centerX, 0, 'trump', 'smugtrump.png');
   game.physics.enable(this.trump, Phaser.Physics.ARCADE);
 
   this.trump.body.collideWorldBounds = true;
@@ -74,8 +74,8 @@ game.create = function () {
 
   this.ball.events.onOutOfBounds.add(game.ballLost, this);
 
-  this.scoreText = game.add.text(32, 550, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
-  this.liveText = game.add.text(680, 550, 'lives: 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
+  this.scoreText = game.add.text(32, 600, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
+  this.liveText = game.add.text(520, 600, 'lives: 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
   this.introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "red", align: "center" });
   this.introText.anchor.setTo(0.5, 0.5);
 
@@ -313,7 +313,7 @@ game.ballHitPaddle = function (_ball, _paddle) {
           this.wallBuilt = true;
         } else {
           var brick;
-          brick = this.bricks.create(120 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
+          brick = this.bricks.create(30 + (this.brickX * 36), 100 + (this.brickY * 52), 'breakout', 'brick.png');
           brick.body.bounce.set(1);
           brick.body.immovable = true;
           this.brickX ++;

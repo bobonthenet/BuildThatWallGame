@@ -1,5 +1,5 @@
 {
-  "name": "Build That Wall",
+  "name": "BuildThatWall",
   "version": "1.1.0",
   "description": "A Grunty Phaser.js SDK",
   "main": "build/js/app.min.js",
