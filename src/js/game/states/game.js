@@ -69,6 +69,8 @@ game.create = function () {
 
   this.ball.body.collideWorldBounds = true;
   this.ball.body.bounce.set(1);
+  this.ball.body.maxVelocity.x = 700;
+  this.ball.body.maxVelocity.y = 700;
 
   this.ball.animations.add('spin', [ 'ball1.png', 'ball2.png', 'ball3.png', 'ball4.png', 'ball5.png' ], 50, true, false);
 
