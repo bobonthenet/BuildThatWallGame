@@ -3,7 +3,7 @@ var Stats = require('Stats')
   , boot = {};
 
 boot.init = function () {
-  if (this.game.device.android && this.game.device.chrome && this.game.device.chromeVersion >= 55) {
+  // if (this.game.device.android && this.game.device.chrome && this.game.device.chromeVersion >= 55) {
     // this.game.sound.setTouchLock();
     this.game.sound.touchLocked = true;
     this.game.input.touch.addTouchLockCallback(function () {
@@ -36,7 +36,7 @@ boot.init = function () {
         return true;
 
     }, this.game.sound, true)
-  }
+  // }
 }
 
 boot.create = function () {

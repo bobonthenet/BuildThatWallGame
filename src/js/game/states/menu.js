@@ -21,6 +21,8 @@ menu.create = function() {
 
   this.s = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY,'menu');
   this.s.anchor.set(0.5);
+  this.s.inputEnabled = true;
+  this.s.events.onInputDown.add(this.playGame, this);
 
   var playGameButton = this.game.add.text(this.game.world.centerX, this.game.world.centerY, "Press or Click to Play Game",
   {
