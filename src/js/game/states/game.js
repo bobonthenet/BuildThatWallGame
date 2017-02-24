@@ -1,9 +1,9 @@
 var game = {};
 
 game.init = function() {
-  this.ball;
-  this.paddle;
-  this.bricks;
+  this.ball= {};
+  this.paddle= {};
+  this.bricks= {};
 
   this.ballOnPaddle = true;
   this.wallBuilt = false;
@@ -15,11 +15,10 @@ game.init = function() {
   this.lives = 3;
   this.score = 0;
 
-  this.scoreText;
-  this.livesText;
-  this.introText;
-
-  this.s;
+  this.scoreText= {};
+  this.livesText= {};
+  this.introText= {};
+  this.s= {};
 };
 
 game.create = function () {
@@ -31,7 +30,7 @@ game.create = function () {
   this.stopIt = game.add.audio('stopIt');
   this.beef = game.add.audio('beef');
   this.cameoutofnowhere = game.add.audio('cameoutofnowhere');
-  this.stupidpeopleinourcountry = game.add.audio('stupidpeopleinourcountry')
+  this.stupidpeopleinourcountry = game.add.audio('stupidpeopleinourcountry');
 
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -76,9 +75,9 @@ game.create = function () {
 
   this.ball.events.onOutOfBounds.add(game.ballLost, this);
 
-  this.scoreText = game.add.text(32, 600, 'score: 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
-  this.liveText = game.add.text(520, 600, 'lives: 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
-  this.introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: "40px Arial", fill: "red", align: "center" });
+  this.scoreText = game.add.text(32, 600, 'score: 0', { font: '20px Arial', fill: '#ffffff', align: 'left' });
+  this.liveText = game.add.text(520, 600, 'lives: 3', { font: '20px Arial', fill: '#ffffff', align: 'left' });
+  this.introText = game.add.text(game.world.centerX, 400, '- click to start -', { font: '40px Arial', fill: 'red', align: 'center' });
   this.introText.anchor.setTo(0.5, 0.5);
 
   game.input.onDown.add(game.releaseBall, this);
@@ -118,7 +117,7 @@ game.update = function () {
       game.physics.arcade.collide(this.ball, this.bricks, game.ballHitBrick, null, this);
       game.physics.arcade.collide(this.ball, this.trump, game.ballHitTrump, null, this);
   }
-}
+};
 
 game.releaseBall = function () {
 
@@ -131,7 +130,7 @@ game.releaseBall = function () {
         this.introText.visible = false;
     }
 
-}
+};
 
 game.ballLost = function () {
     this.stupidpeopleinourcountry.play();
@@ -151,7 +150,7 @@ game.ballLost = function () {
         this.ball.animations.stop();
     }
 
-}
+};
 
 game.gameOver = function () {
 
@@ -161,7 +160,7 @@ game.gameOver = function () {
     this.introText.visible = true;
     this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('menu'); }, this);
 
-}
+};
 
 game.ballHitBrick = function (_ball, _brick) {
 
@@ -178,7 +177,7 @@ game.ballHitBrick = function (_ball, _brick) {
     this.scoreText.text = 'score: ' + this.score;
 
     //  Are they any bricks left?
-    if (this.bricks.countLiving() == 0)
+    if (this.bricks.countLiving() === 0)
     {
         //  New level starts
         this.score += 1000;
@@ -198,7 +197,7 @@ game.ballHitBrick = function (_ball, _brick) {
         this.wallBuiltAudio = false;
     }
 
-}
+};
 
 game.ballHitPaddle = function (_ball, _paddle) {
 
@@ -222,11 +221,11 @@ game.ballHitPaddle = function (_ball, _paddle) {
         //  Add a little random X to stop it bouncing straight up!
         _ball.body.velocity.x = 2 + Math.random() * 8;
     }
-  }
+  };
 
   game.ballHitTrump = function (_ball, _trump) {
 
-    var trumpHit = this.rnd.integerInRange(0, 2)
+    var trumpHit = this.rnd.integerInRange(0, 2);
 
     switch(trumpHit) {
       case 0:
@@ -289,7 +288,7 @@ game.ballHitPaddle = function (_ball, _paddle) {
     if(this.ball.body.velocity.y === 0){
       this.ball.body.velocity.y = 10;
     }
-  }
+  };
 
   game.buildThatWall = function () {
 
@@ -322,12 +321,12 @@ game.ballHitPaddle = function (_ball, _paddle) {
 
           if(this.brickX === 15)
           {
-            this.brickX = 0
+            this.brickX = 0;
             this.brickY ++;
           }
         }
       }
     }
-  }
+  };
 
 module.exports = game;
