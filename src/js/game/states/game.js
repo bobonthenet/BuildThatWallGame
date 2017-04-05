@@ -154,7 +154,7 @@ game.ballLost = function () {
 
 game.gameOver = function () {
 
-    Cocoon.Ad.AdMob.showInterstitial();
+    this.game.interstitial.show();
 
     this.ball.body.velocity.setTo(0, 0);
 

@@ -36,12 +36,13 @@ boot.init = function () {
   }, this.game.sound, true);
 
   this.game.device.whenReady(function(){
-    if(this.game.device.cordova) {
+    debugger;
+    if(this.game.device.cocoonJSApp) {
       if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
         this.setupAdmob();
       }
     }
-  })
+  }, this)
 };
 
 boot.create = function () {
@@ -56,17 +57,18 @@ boot.create = function () {
 };
 
 boot.setupAdmob = function() {
-  var admobSettings = {};
-  admobSettings = {
-    interstitial: 'ca-app-pub-1293320384874950/4095392425'
-  };
+  // var admobSettings = {};
+  // admobSettings = {
+  //   interstitial: 'ca-app-pub-1293320384874950/4095392425'
+  // };
 
-  Cocoon.Ad.AdMob.prepareInterstitial({
-    adId: admobSettings.interstitial,
-    autoShow: false,
-    isTesting: true
+  // Cocoon.Ad.AdMob.prepareInterstitial({
+  //   adId: admobSettings.interstitial,
+  //   autoShow: false,
+  //   isTesting: true
 
-  });
+  // });
+  this.game.interstitial = Cocoon.Ad.AdMob.createInterstitial('ca-app-pub-1293320384874950/4095392425');
 }
 
 function addStats(game) {
