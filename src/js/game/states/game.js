@@ -154,11 +154,13 @@ game.ballLost = function () {
 
 game.gameOver = function () {
 
+    Cocoon.Ad.AdMob.showInterstitial();
+
     this.ball.body.velocity.setTo(0, 0);
 
     this.introText.text = 'Game Over!';
     this.introText.visible = true;
-    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('menu'); }, this);
+    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('game'); }, this);
 
 };
 

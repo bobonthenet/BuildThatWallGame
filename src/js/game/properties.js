@@ -1,7 +1,7 @@
 var npmProperties = require('../../../package.json');
 
 module.exports =
-  { title: 'Build That Wall'
+  { title: 'Border Wall'
   , description: npmProperties.description
   , port: 3017
   , liveReloadPort: 3018

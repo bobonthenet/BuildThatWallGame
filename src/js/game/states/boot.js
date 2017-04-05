@@ -34,6 +34,14 @@ boot.init = function () {
       return true;
 
   }, this.game.sound, true);
+
+  this.game.device.whenReady(function(){
+    if(this.game.device.cordova) {
+      if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
+        this.setupAdmob();
+      }
+    }
+  })
 };
 
 boot.create = function () {
@@ -46,6 +54,20 @@ boot.create = function () {
 
   this.game.state.start('preloader');
 };
+
+boot.setupAdmob = function() {
+  var admobSettings = {};
+  admobSettings = {
+    interstitial: 'ca-app-pub-1293320384874950/4095392425'
+  };
+
+  Cocoon.Ad.AdMob.prepareInterstitial({
+    adId: admobSettings.interstitial,
+    autoShow: false,
+    isTesting: true
+
+  });
+}
 
 function addStats(game) {
   var stats = new Stats();
