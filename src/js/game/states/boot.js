@@ -37,7 +37,8 @@ boot.init = function () {
 
   this.game.device.whenReady(function(){
     debugger;
-    if(this.game.device.cocoonJSApp) {
+    console.log(this.game.device)
+    if(this.game.device.cordova) {
       if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
         this.setupAdmob();
       }
@@ -57,18 +58,23 @@ boot.create = function () {
 };
 
 boot.setupAdmob = function() {
-  // var admobSettings = {};
-  // admobSettings = {
-  //   interstitial: 'ca-app-pub-1293320384874950/4095392425'
-  // };
-
-  // Cocoon.Ad.AdMob.prepareInterstitial({
-  //   adId: admobSettings.interstitial,
-  //   autoShow: false,
-  //   isTesting: true
-
-  // });
   this.game.interstitial = Cocoon.Ad.AdMob.createInterstitial('ca-app-pub-1293320384874950/4095392425');
+
+  this.game.interstitial.on("load", function(){
+      console.log("Interstitial loaded");
+  });
+  
+  this.game.interstitial.on("fail", function(){
+      console.log("Interstitial failed");
+  });
+  
+  this.game.interstitial.on("show", function(){
+      console.log("Interstitial shown");
+  });
+  
+  this.game.interstitial.on("dismiss", function(){
+      console.log("Interstitial dismissed");
+  });
 }
 
 function addStats(game) {

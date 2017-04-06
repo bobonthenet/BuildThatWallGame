@@ -12,5 +12,6 @@
 
 ## TODO:
 
-  * Ads.
   * Replace Trump head with Steve Bannon if player score is over 10,000.
+  * Ads work but will only display every other game over. I think this is because the load method is only happening once, then the show method loads a new interstitial every other time.
+  * Audio is broke again.

@@ -19,6 +19,8 @@ game.init = function() {
   this.livesText= {};
   this.introText= {};
   this.s= {};
+
+  this.game.interstitial.load();
 };
 
 game.create = function () {
@@ -153,7 +155,6 @@ game.ballLost = function () {
 };
 
 game.gameOver = function () {
-
     this.game.interstitial.show();
 
     this.ball.body.velocity.setTo(0, 0);
