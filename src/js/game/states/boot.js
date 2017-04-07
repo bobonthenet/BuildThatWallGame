@@ -73,9 +73,6 @@ boot.setupAdmob = function() {
   this.game.interstitial.on("dismiss", function(){
     console.log("Interstitial dismissed");
     this.game.interstitial.load();
-    this.introText.text = 'Game Over!';
-    this.introText.visible = true;
-    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('game'); }, this);
   });
 }
 

@@ -163,15 +163,16 @@ game.ballLost = function () {
 game.gameOver = function () {
 
   this.ball.body.velocity.setTo(0, 0);
+  this.introText.text = 'Game Over!';
+  this.introText.visible = true;
 
   if(this.game.device.cordova) {
     if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
       this.game.interstitial.show();
+      game.input.onDown.add(function() { this.state.start('game'); }, this);
     }
   } else {
-    this.introText.text = 'Game Over!';
-    this.introText.visible = true;
-    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('game'); }, this);
+    game.input.onDown.add(function() { this.state.start('game'); }, this);
   }
 };
 
