@@ -3,41 +3,39 @@ var Stats = require('Stats')
   , boot = {};
 
 boot.init = function () {
-  this.game.sound.touchLocked = true;
-  this.game.input.touch.addTouchLockCallback(function () {
-      if (this.noAudio || !this.touchLocked || this._unlockSource !== null) {
-          return true;
-      }
-      if (this.usingWebAudio) {
-          // Create empty buffer and play it
-          // The SoundManager.update loop captures the state of it and then resets touchLocked to false
+  // this.game.sound.touchLocked = true;
+  // this.game.input.touch.addTouchLockCallback(function () {
+  //     if (this.noAudio || !this.touchLocked || this._unlockSource !== null) {
+  //         return true;
+  //     }
+  //     if (this.usingWebAudio) {
+  //         // Create empty buffer and play it
+  //         // The SoundManager.update loop captures the state of it and then resets touchLocked to false
 
-          var buffer = this.context.createBuffer(1, 1, 22050);
-          this._unlockSource = this.context.createBufferSource();
-          this._unlockSource.buffer = buffer;
-          this._unlockSource.connect(this.context.destination);
+  //         var buffer = this.context.createBuffer(1, 1, 22050);
+  //         this._unlockSource = this.context.createBufferSource();
+  //         this._unlockSource.buffer = buffer;
+  //         this._unlockSource.connect(this.context.destination);
 
-          if (this._unlockSource.start === undefined) {
-              this._unlockSource.noteOn(0);
-          }
-          else {
-              this._unlockSource.start(0);
-          }
+  //         if (this._unlockSource.start === undefined) {
+  //             this._unlockSource.noteOn(0);
+  //         }
+  //         else {
+  //             this._unlockSource.start(0);
+  //         }
 
-          //Hello Chrome 55!
-          if (this._unlockSource.context.state === 'suspended') {
-              this._unlockSource.context.resume();
-          }
-      }
+  //         //Hello Chrome 55!
+  //         if (this._unlockSource.context.state === 'suspended') {
+  //             this._unlockSource.context.resume();
+  //         }
+  //     }
 
-      //  We can remove the event because we've done what we needed (started the unlock sound playing)
-      return true;
+  //     //  We can remove the event because we've done what we needed (started the unlock sound playing)
+  //     return true;
 
-  }, this.game.sound, true);
+  // }, this.game.sound, true);
 
   this.game.device.whenReady(function(){
-    debugger;
-    console.log(this.game.device)
     if(this.game.device.cordova) {
       if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
         this.setupAdmob();
@@ -73,7 +71,11 @@ boot.setupAdmob = function() {
   });
   
   this.game.interstitial.on("dismiss", function(){
-      console.log("Interstitial dismissed");
+    console.log("Interstitial dismissed");
+    this.game.interstitial.load();
+    this.introText.text = 'Game Over!';
+    this.introText.visible = true;
+    this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('game'); }, this);
   });
 }
 

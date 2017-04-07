@@ -20,10 +20,16 @@ game.init = function() {
   this.introText= {};
   this.s= {};
 
-  this.game.interstitial.load();
 };
 
 game.create = function () {
+
+  if(this.game.device.cordova) {
+    if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
+      this.game.interstitial.load();
+    }
+  }
+
   this.weNeedToBuild = game.add.audio('weNeedToBuild');
 
   this.smash1 = game.add.audio('smash1');
@@ -155,14 +161,18 @@ game.ballLost = function () {
 };
 
 game.gameOver = function () {
-    this.game.interstitial.show();
 
-    this.ball.body.velocity.setTo(0, 0);
+  this.ball.body.velocity.setTo(0, 0);
 
+  if(this.game.device.cordova) {
+    if(typeof Cocoon.Ad.AdMob !== 'undefined' && Cocoon.Ad.AdMob) {
+      this.game.interstitial.show();
+    }
+  } else {
     this.introText.text = 'Game Over!';
     this.introText.visible = true;
     this.time.events.add(Phaser.Timer.SECOND * 4, function() { this.state.start('game'); }, this);
-
+  }
 };
 
 game.ballHitBrick = function (_ball, _brick) {

@@ -38,6 +38,6 @@
     "grunt-open": "^0.2.3",
     "grunt-pngmin": "^1.0.2",
     "lodash": "^4.6.1",
-    "phaser-ce": "^2.7.3"
+    "phaser-ce": "^2.7.5"
   }
 }
